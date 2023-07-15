@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/MichalKopaczewski.github.io/static/css/main.073c9b0a.css",
+    "main.js": "/MichalKopaczewski.github.io/static/js/main.fbe4141f.js",
+    "static/js/787.1ed0c42c.chunk.js": "/MichalKopaczewski.github.io/static/js/787.1ed0c42c.chunk.js",
+    "static/media/logo.svg": "/MichalKopaczewski.github.io/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/MichalKopaczewski.github.io/index.html",
+    "main.073c9b0a.css.map": "/MichalKopaczewski.github.io/static/css/main.073c9b0a.css.map",
+    "main.fbe4141f.js.map": "/MichalKopaczewski.github.io/static/js/main.fbe4141f.js.map",
+    "787.1ed0c42c.chunk.js.map": "/MichalKopaczewski.github.io/static/js/787.1ed0c42c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.fbe4141f.js"
+  ]
+}
