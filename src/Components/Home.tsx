@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import frame from '../images/frame.png';
+import React, { useRef } from 'react';
 import ecoKonf1 from '../images/ecoKonf1.png';
 import ecoKonf2 from '../images/ecoKonf2.png';
 import ecoKonf4 from '../images/ecoKonf4.png';
@@ -7,178 +6,193 @@ import pakSystem1 from '../images/paksystem1.png';
 import pakSystem2 from '../images/paksystem2.png';
 import netreact from '../images/netreact.webp';
 import cvPl from '../images/cvPl.pdf';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCloudArrowDown, faCode, faDatabase, faHashtag}  from '@fortawesome/free-solid-svg-icons'
-import {faReact,faHtml5} from '@fortawesome/free-brands-svg-icons'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCloudArrowDown, faCode, faDatabase, faHashtag } from '@fortawesome/free-solid-svg-icons';
+import { faReact, faHtml5 } from '@fortawesome/free-brands-svg-icons';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
-export class Home extends Component {
-    static displayName = Home.name;
+type Project = {
+    title: string;
+    summary: string;
+    details: string[];
+    stack: string[];
+    images: string[];
+};
 
-    render() {
-        return (
-            <div>
-                <div id="banner" className="wrapper">
-                    <div className="inner">
-                        <div className="content">
-                            <h1>Michał Kopaczewski</h1>
-                            <h4>Fullstack .NET Developer</h4>
-                            <p>My adventure with C# and .NET started around 2018. From 2021 I am self-employed working with multiple customers.</p>
-                            <ul className="actions">
-                                <li><a className="button primary" href="#two">Technologies</a></li>
-                                <li><a className="button" href="#one">My last projects</a></li>
-                            </ul>
+type ProjectGalleryProps = {
+    images: string[];
+    title: string;
+};
+
+type ImageGalleryHandle = InstanceType<typeof ImageGallery> & { toggleFullScreen: () => void };
+
+const ProjectGallery = ({ images, title }: ProjectGalleryProps) => {
+    const galleryRef = useRef<ImageGalleryHandle | null>(null);
+
+    const items = images.map((src) => ({ original: src, thumbnail: src, description: title }));
+
+    return (
+        <ImageGallery
+            ref={galleryRef}
+            items={items}
+            showPlayButton={false}
+            showBullets
+            showFullscreenButton
+            showNav
+            showThumbnails
+            onClick={() => galleryRef.current?.toggleFullScreen()}
+            additionalClass="project-gallery"
+        />
+    );
+};
+
+const techStack = [
+    { title: 'C# / .NET', icon: faHashtag, description: 'Primary stack for building robust backend services and APIs.' },
+    { title: 'Clean Architecture', icon: faCode, description: 'Separation of concerns with CQRS + MediatR for maintainable codebases.' },
+    { title: 'REST APIs', icon: faCloudArrowDown, description: 'Designing and testing RESTful endpoints with Swagger and Postman.' },
+    { title: 'SQL Server', icon: faDatabase, description: 'Queries, procedures, and triggers tuned for production workloads.' },
+    { title: 'React', icon: faReact, description: 'Modern UI development with React 18 and TypeScript.' },
+    { title: 'HTML / CSS', icon: faHtml5, description: 'Adapting templates and crafting responsive layouts quickly.' },
+];
+
+const projects: Project[] = [
+    {
+        title: 'Eco-installation configurator',
+        summary: 'Interactive web app for visualizing green energy installations across diverse buildings.',
+        details: [
+            'Real-time ERP synchronization keeps configurations and pricing aligned.',
+            'TomTom Maps overlay highlights completed installations with contextual detail.',
+            'CQRS + MediatR with Entity Framework ensures clean business logic boundaries.',
+        ],
+        stack: ['.NET 7', 'React 18', 'TomTom Maps', 'Entity Framework', 'CQRS + MediatR'],
+        images: [ecoKonf1, ecoKonf2, ecoKonf4],
+    },
+    {
+        title: 'Packing system',
+        summary: 'Automation suite connecting PLC drivers, smart cameras, and inkjet printers.',
+        details: [
+            'Windows Service coordinates device communication and persists production data.',
+            'Web dashboard surfaces device status, product traceability, and audit history.',
+            'TCP/IP integrations built with s7NetPlus and custom printer protocol handlers.',
+        ],
+        stack: ['.NET 7', 'React 18', 'Windows Service', 's7NetPlus', 'TCP/IP'],
+        images: [pakSystem1, pakSystem2],
+    },
+];
+
+export const Home = () => {
+    return (
+        <div>
+            <section id="hero" className="hero">
+                <div className="container">
+                    <div className="row align-items-center">
+                        <div className="col-lg-6">
+                            <span className="eyebrow">Fullstack .NET Developer</span>
+                            <h1 className="mt-3">Building reliable software for real businesses.</h1>
+                            <p className="lead mt-3">
+                                I help teams ship production-ready systems across web, services, and integrations. From 2021 I have been
+                                working independently with customers that need dependable delivery on the Microsoft stack.
+                            </p>
+                            <div className="d-flex flex-wrap mt-4 button-row">
+                                <a href="#projects" className="btn btn-accent btn-lg">See recent projects</a>
+                                <a href={cvPl} className="btn btn-outline-dark btn-lg" target="_blank" rel="noreferrer">CV (PL)</a>
+                            </div>
+                            <div className="hero-meta">
+                                <div className="hero-chip">C# / .NET 7</div>
+                                <div className="hero-chip">React 18</div>
+                                <div className="hero-chip">SQL Server</div>
+                            </div>
                         </div>
-                        <div className="image-wrapper">
-                            <img src={frame} className="frame" alt="" />
-                            <div className="image">
-                                <img src={netreact} alt="" />
+                        <div className="col-lg-6 mt-5 mt-lg-0">
+                            <div className="hero-visual">
+                                <img src={netreact} alt="Project preview" className="hero-image w-100" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <section id="two" className="wrapper style1">
-                    <div className="inner">
-                        <header className='major'>
-                            <h2>Technologies im using</h2>
-                        </header>
-                        <div className="features">
-                            <div className="feature">
-                                <span className="icon solid alt major"> <FontAwesomeIcon  icon={faHashtag} /></span>
-                                
-                                <h2>C#</h2>
-                                <p>C# is my main programming language that I use every day.</p>
-                            </div>
-                            <div className="feature">
-                                <span className="icon solid alt major">  <FontAwesomeIcon icon={faCode} /></span>
-                                <h2>.NET </h2>
-                                <p>.NET (starting from .NET 5), .NET Framework 4.7 </p>
-                            </div>
-                            <div className="feature">
-                                <span className="icon solid alt major">  <FontAwesomeIcon icon={faCloudArrowDown} /></span>
-                                <h2>Rest API</h2>
-                                <p>Most of my projects are serving or using rest api, im using Swagger or Postman to test API</p>
-                            </div>
-                            <div className="feature">
-                                <span className="icon solid alt major">  <FontAwesomeIcon icon={faDatabase} /></span>
-                                <h2>Microsoft SQL Server from 2012</h2>
-                                <p>Basic and intermediate usage of queries, procedures and triggers</p>
-                           </div>
-                            <div className="feature">
-                                <span className="icon solid alt major">  <FontAwesomeIcon icon={faReact} /></span>
-                                <h2>React</h2>
-                                <p>I am able to create simple user interface</p>
-                            </div>
-                            <div className="feature">
-                                <span className="icon solid alt major">  <FontAwesomeIcon icon={faHtml5} /></span>
-                                <h2>HTML, CSS</h2>
-                                <p>I can use predefined templates and modify them to meet my requirements</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <div id="wrapper">
+            </section>
 
-                    <section id="one" className="wrapper style1">
-                        <div className="inner">
-                            <header className='major'>
-                                <h2>My last projects</h2>
-                            </header>
-                            <div className="spotlights">
-                                <div className="spotlight">
-                                    <div className="image fit alt">
-                                        <Carousel autoPlay={false}
-                                            emulateTouch={true}
-                                            showArrows={true}
-                                            showThumbs={false}
-                                            showStatus={false}
-                                            infiniteLoop={true}>
-                                            <div>
-                                                <img src={ecoKonf1} />
-                                            </div>
-                                            <div>
-                                                <img src={ecoKonf2} />
-                                            </div>
-                                            <div>
-                                                <img src={ecoKonf4} />
-                                            </div>
-                                        </Carousel>
-                                    </div>
-                                    <div className="content">
-                                        <h2>Eco-installation configurator</h2>
-                                        <p>This application was created for customer who specialize in green energy solutions. The goal was to create visualization of configuration on different types of buildings. The visualization is synchronized in real time with data that comes from ERP. Customer is able to add already created installation that will show on map with details that showes on click.</p>
-                                        <p>It is web application written in .NET 7 and React 18. It is using Clean Architecture with CQRS + MediatR library</p>
-                                        <p>There is written integration with customers ERP database using Entity Framework to get data to visualize and integration with TomTom Maps to show already done installations.</p>
-                                    </div>
+            <section id="technologies" className="section bg-light">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Technologies I lean on</h2>
+                        <p>Modern tools and patterns that keep projects maintainable, observable, and quick to evolve.</p>
+                    </div>
+                    <div className="row g-4">
+                        {techStack.map((item) => (
+                            <div className="col-md-4" key={item.title}>
+                                <div className="tech-card h-100">
+                                    <div className="tech-icon"><FontAwesomeIcon icon={item.icon} /></div>
+                                    <h4>{item.title}</h4>
+                                    <p>{item.description}</p>
                                 </div>
-                                <div className="spotlight">
-                                    <div className="image fit">
-                                        <Carousel autoPlay={false}
-                                            emulateTouch={true}
-                                            showArrows={true}
-                                            showThumbs={false}
-                                            showStatus={false}
-                                            infiniteLoop={true}>
-                                            <div>
-                                                <img src={pakSystem1} alt="" />
-                                            </div>
-                                            <div>
-                                                <img src={pakSystem2} alt="" />
-                                            </div>
-                                          
-                                        </Carousel>
-                                    </div>
-                                    <div className="content">
-                                        <h2>Packing system</h2>
-                                        <p>Packing system was built to integrate PLC Driver with Smart Camera and Inkjet Printer.</p>
-                                        <p>This system consists of Windows Service and Web Application. 
-                                            Windows service is responsible for communication between devices and storing relevant data in application database. 
-                                            Web Application enable users to check devices statusses and view information about handled products.</p>
-                                        <p>It is written in .NET 7 and React 18. It is using Clean Architecture with CQRS + MediatR library. Communication to printers is handled with TCP/IP, communication to the PLC Drivers is done with help of s7NetPlus library that communicates by TCP/IP.</p>
-                                        <p>Using Clean Architecture with CQRS + Mediatr i could reuse code that was needed by Web Application and Windows Service because it has common Application layer.</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" className="section">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>Recent work</h2>
+                        <p>Selected engagements that combine dependable backends with clear user experiences.</p>
+                    </div>
+
+                    {projects.map((project) => (
+                        <div className="project-card mb-5" key={project.title}>
+                            <div className="row g-0 align-items-center">
+                                <div className="col-lg-6">
+                                    <ProjectGallery images={project.images} title={""} />
+                                </div>
+                                <div className="col-lg-6">
+                                    <div className="project-body">
+                                        <h3>{project.title}</h3>
+                                        <p className="text-secondary mb-3">{project.summary}</p>
+                                        <ul className="text-secondary ps-3">
+                                            {project.details.map((detail) => (
+                                                <li className="mb-2" key={detail}>{detail}</li>
+                                            ))}
+                                        </ul>
+                                        <div className="project-meta">
+                                            {project.stack.map((tag) => (
+                                                <span className="project-tag" key={tag}>{tag}</span>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    ))}
                 </div>
-                <div id="footer" className="wrapper">
-                    <div className="inner">
-                        <header>
-                            <h2>Get in touch</h2>
-                            <p></p>
-                        </header>
-                        <section className="contact-info">
-                            <div className="item">
-                                <span className="icon solid alt fa-home"></span>
-                                <p>
-                                    87-305 Zbiczno<br />
-                                    Żmijewko 2G
+            </section>
+
+            <section id="contact" className="section bg-light">
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col-lg-8">
+                            <div className="contact-card">
+                                <h3>Let's build something</h3>
+                                <p className="text-secondary mb-4">
+                                    Tell me about the system you need or the workflow you want to improve. I respond quickly with next steps.
                                 </p>
+                                <ul className="contact-list">
+                                    <li><strong>Location</strong> <span>87-305 Zbiczno, Żmijewko 2G</span></li>
+                                    <li><strong>Email</strong> <span>michal.kopaczewski.it+portfolio@gmail.com</span></li>
+                                    <li><strong>LinkedIn</strong> <span>linkedin.com/in/michalkopaczewski</span></li>
+                                    <li><strong>VAT</strong> <span>PL8741802122</span></li>
+                                </ul>
+                                <div className="d-flex flex-wrap mt-4 button-row">
+                                    <a className="btn btn-accent" href="mailto:michal.kopaczewski.it+portfolio@gmail.com">Email me</a>
+                                    <a className="btn btn-outline-dark" href="https://www.linkedin.com/in/michalkopaczewski/" target="_blank" rel="noreferrer">LinkedIn</a>
+                                    <a className="btn btn-outline-dark" href={cvPl} target="_blank" rel="noreferrer">Download CV</a>
+                                </div>
                             </div>
-                            <div className="item">
-                                <span className="icon solid alt fa-envelope"></span>
-                                <a href="mailto:michal.kopaczewski.it+portfolio@gmail.com">Email</a>
-                            </div>
-
-                            <div className="item">
-                                <span className="icon brands alt fa-linkedin-in"></span>
-                                <a href="www.linkedin.com/in/michalkopaczewski">Michał Kopaczewski</a>
-                            </div>
-                            <div className="item">
-                                <span className="icon solid alt fa-book"></span>
-                                <p>VatNum: PL8741802122</p>
-                            </div>
-                            <div className="item">
-                                <span className="icon solid alt fa-book"></span>
-                                <a href={cvPl} target='_blank'>CV in Polish</a>
-                            </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
-                <a href="#banner" className="button primary back-to-top">Back to top</a>
-            </div>
-        );
-    }
-}
+            </section>
+        </div>
+    );
+};
