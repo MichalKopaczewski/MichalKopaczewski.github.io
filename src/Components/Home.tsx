@@ -5,6 +5,16 @@ import ecoKonf4 from '../images/ecoKonf4.png';
 import pakSystem1 from '../images/paksystem1.png';
 import pakSystem2 from '../images/paksystem2.png';
 import netreact from '../images/netreact.webp';
+import erpRcpReaders from '../images/Erp/ListaCzytnikowRCP.jpg';
+import erpProducts from '../images/Erp/ListaProduktow.jpg';
+import erpTimeReport from '../images/Erp/RaportCzasuPracy.jpg';
+import erpLeaveRequest from '../images/Erp/TworzenieWnioskuUrlopowego.jpg';
+import erpLeaveBalances from '../images/Erp/WymiaryUrlopow.jpg';
+import erpProjectBoard from '../images/Erp/ZarzadzenieProjektem.jpg';
+import gymReaders from '../images/Gym/CzytnikiRCP.jpg';
+import gymPassTemplates from '../images/Gym/KarnetyWzorcowe.jpg';
+import gymDetails from '../images/Gym/SzczegolySilowni.jpg';
+import gymUsers from '../images/Gym/UzytkownicySilowni.jpg';
 import cvPl from '../images/cvPl.pdf';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowDown, faCode, faDatabase, faHashtag } from '@fortawesome/free-solid-svg-icons';
@@ -57,6 +67,43 @@ const techStack = [
 ];
 
 const projects: Project[] = [
+    {
+        title: 'ERP workforce portal',
+        summary: 'Role-based ERP system that unifies HR, project tracking, and production catalogs.',
+        details: [
+            'Employee leave request workflow. Information on current, overdue, and selected leave.',
+            'Integration with RCP readers for timesheet reading. Integration with an IP camera for monitoring timesheet readings.',
+            'Extensive work time reporting with the ability to manually edit and calculate employee pay, taking into account leave and sick leave requests.',
+            'Project management by creating, modifying, and linking relevant documentation.',
+        ],
+        stack: ['.NET 8', 'React 18', 'SQL Server', 'REST APIs', 'RCP Readers', 'Role-based access', 'CQRS + MediatR', "SSRS integration", "Modular monolith"],
+        images: [
+            erpRcpReaders,
+            erpTimeReport,
+            erpLeaveBalances,
+            erpLeaveRequest,
+            erpProducts,
+            erpProjectBoard,
+        ],
+    },
+    {
+        title: 'Gym manager',
+        summary: 'Access-control and membership management portal for multi-location gyms.',
+        details: [
+            'Integration with RCP reader for unattended gym door opening.',
+            'Ability to define memberships sold to customers.',
+            'Purchase and extend memberships for users.',
+            'Block users who violate gym rules.',
+            'Management of employees and system users.',
+        ],
+        stack: ['.NET 9', 'React 18', 'PostgreSQL', 'REST APIs', 'RCP Readers', 'CQRS + MediatR', "Modular monolith"],
+        images: [
+            gymReaders,
+            gymPassTemplates,
+            gymDetails,
+            gymUsers,
+        ],
+    },
     {
         title: 'Eco-installation configurator',
         summary: 'Interactive web app for visualizing green energy installations across diverse buildings.',
