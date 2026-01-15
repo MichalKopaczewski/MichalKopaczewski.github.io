@@ -25,7 +25,10 @@ export class Home extends Component {
                             <h1>Michał Kopaczewski</h1>
                             <h4>Fullstack .NET Developer</h4>
                             <p>My adventure with C# and .NET started around 2018. From 2021 I am self-employed working with multiple customers.</p>
-                           
+                            <ul className="actions">
+                                <li><a className="button primary" href="#two">Technologies</a></li>
+                                <li><a className="button" href="#one">My last projects</a></li>
+                            </ul>
                         </div>
                         <div className="image-wrapper">
                             <img src={frame} className="frame" alt="" />
@@ -174,6 +177,7 @@ export class Home extends Component {
                         </section>
                     </div>
                 </div>
+                <a href="#banner" className="button primary back-to-top">Back to top</a>
             </div>
         );
     }

@@ -142,3 +142,19 @@
 			opacity: 0.25;
 		}
 	}
+
+/* Floating back-to-top control */
+	.button.back-to-top {
+		position: fixed;
+		right: 1.5rem;
+		bottom: 1.5rem;
+		z-index: _misc(z-index-base) + 2;
+		padding: 0 1.75rem 0 1.35rem;
+		min-width: 10rem;
+		box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
+		text-align: left;
+		@include breakpoint('<=small') {
+			right: 1rem;
+			bottom: 1rem;
+		}
+	}
